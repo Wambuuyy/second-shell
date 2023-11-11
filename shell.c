@@ -13,13 +13,18 @@ int main()
 			if (feof(stdin))
 			{
 				printf("\n");/*print new line after EOF*/
-				break;  /* Exit the loop on Ctrl+D*/
+				break;/* Exit the loop on Ctrl+D*/
 			}
 			perror("fgets");
 			exit(EXIT_FAILURE);
 		}
 		/* Remove the newline character*/
 		input[strcspn(input, "\n")] = '\0';
+		/* Check if the user pressed Enter without typing a command */
+		if (input[0] == '\0')
+		{
+			continue;/* Skip the rest of the loop and prompt again */
+		}
 
 		/* exit if the user enters "exit" or "quit"*/
 		if (strcmp(input, "exit") == 0 || strcmp(input, "quit") == 0)

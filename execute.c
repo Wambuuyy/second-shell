@@ -79,9 +79,10 @@ char *resolve_command_path(const char *command)
 			cmd_path = NULL;
 			token = strtok(NULL, ":");
 		}
-		 if (cmd_path == NULL)
-		 {
-			 fprintf(stderr, "Error: Command not found in any PATH directory.\n");
+		if (cmd_path == NULL)
+		{
+			fprintf(stderr, "Error: Command not found in any PATH directory.\n");
+			return (NULL);
 		}
 	}
 	printf("Resolved command path: %s\n", cmd_path);  /* Debugging statement */
