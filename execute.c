@@ -5,6 +5,12 @@ void execute_command(const char *const *command)
 	char *cmd_path;
 	pid_t pid;
 
+	if (strcmp(command[0], "env") == 0)
+	{
+		print_environment();
+		return;
+	}
+
 	cmd_path = resolve_command_path(command[0]);
 	if (cmd_path == NULL)
 	{
@@ -87,4 +93,15 @@ char *resolve_command_path(const char *command)
 	}
 	printf("Resolved command path: %s\n", cmd_path);  /* Debugging statement */
 	return cmd_path;
+}
+
+void print_environment()
+{
+	char **env_var = environ;
+
+	while (*env_var != NULL)
+	{
+		printf("%s\n", *env_var);
+		env_var++;
+	}
 }

@@ -16,6 +16,7 @@ extern char **environ;  /* Declare the external variable to access the environme
 void execute_command(const char *const *command);
 void tokenize(char *input, char *command[], int max_args);
 char *resolve_command_path(const char *command);
+void print_environment();
 
 #endif
 

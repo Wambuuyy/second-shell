@@ -25,10 +25,15 @@ int main()
 		{
 			continue;/* Skip the rest of the loop and prompt again */
 		}
-
 		/* exit if the user enters "exit" or "quit"*/
 		if (strcmp(input, "exit") == 0 || strcmp(input, "quit") == 0)
 			break;
+		/* Handle the "env" built-in command */
+		if (strcmp(input, "env") == 0)
+		{
+			print_environment();
+			continue;
+		}
 		tokenize(input, command, 20);
 		/* Execute the command only if its not empty*/
 		execute_command((const char *const *)command);
