@@ -12,6 +12,9 @@ extern char **environ;  /* Declare the external variable to access the environme
 
 #define MAX_COMMAND_LENGTH 100
 
-void execute_command(char *command);
+void execute_command(const char *const *command);
+void tokenize(char *input, char *command[], int max_args);
+char *resolve_command_path(const char *command);
+
 #endif
 
