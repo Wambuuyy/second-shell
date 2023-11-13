@@ -11,9 +11,13 @@
 
 extern char **environ;  /* Declare the external variable to access the environment */
 
-#define MAX_COMMAND_LENGTH 100
+#define BUFFER_SIZE 1024
+
+/*static char buffer[BUFFER_SIZE];
+static size_t buffer_index = 0;*/
 
 void execute_command(const char *const *command);
+char *custom_getline();
 void tokenize(char *input, char *command[], int max_args);
 char *resolve_command_path(const char *command);
 void print_environment();
