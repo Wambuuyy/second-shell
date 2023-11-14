@@ -38,7 +38,7 @@ void execute_command(const char *const *command)
 	if (pid == -1)
 	{
 		perror("fork");
-		exit(EXIT_FAILURE);
+		continue;/*continue the shell loop*/
 	}
 	else if (pid == 0)
 	{
