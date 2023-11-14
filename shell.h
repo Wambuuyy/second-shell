@@ -8,6 +8,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <limits.h>
 
 extern char **environ;  /* Declare the external variable to access the environment */
 

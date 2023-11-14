@@ -4,20 +4,29 @@ void execute_command(const char *const *command)
 {
 	char *cmd_path;
 	pid_t pid;
+	const char *target_dir;
+	char cwd[PATH_MAX];
 	
 	if (strcmp(command[0], "cd") == 0)
 	{
 		/* Handle 'cd' command*/
-		if (command[1] != NULL)
+		target_dir = (command[1] != NULL) ? command[1] : getenv("HOME");
+
+		if (chdir(target_dir) == -1)
 		{
-			if (chdir(command[1]) == -1)
-			{
-				perror("chdir");
-			}
+			perror("chdir");
 		}
 		else
 		{
-			fprintf(stderr, "Error: 'cd' command requires a directory argument.\n");
+			/* Update PWD environment variable */
+			if (getcwd(cwd, sizeof(cwd)) != NULL)
+			{
+				set_environment_variable("PWD", cwd);
+			}
+			else
+			{
+				perror("getcwd");
+			}
 		}
 		return;
 	}
