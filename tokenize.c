@@ -69,13 +69,21 @@ char *str_tok(char *str, const char *delimiters)
  */
 void tokenize(char *input, char *command[], int max_args)
 {
-	char *token = str_tok(input, " ");
+	char *token = str_tok(input, ";");
 	int i = 0;
+	char *tokenized_input = strdup(input);
+	/*Create a copy of the input*/
+	if (tokenized_input == NULL)
+	{
+		perror("strdup");
+		exit(EXIT_FAILURE);
+	}
 
 	while (token != NULL && i < max_args)
 	{
 		command[i++] = token;
-		token = str_tok(NULL, " ");
+		token = str_tok(NULL, ";");
 	}
-	command[i] = NULL;
+	command[i] = NULL;/* Null-terminate the commands array*/
+	free(tokenized_input);/* Free the allocated memory for the copy*/
 }

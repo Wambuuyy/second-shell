@@ -19,6 +19,7 @@ static size_t buffer_index = 0;*/
 char *str_tok(char *str, const char *delimiters);
 void execute_command(const char *const *command);
 char *custom_getline();
+void execute_commands(char *const *commands);
 void set_environment_variable(const char *variable, const char *value);
 void unset_environment_variable(const char *variable);
 void tokenize(char *input, char *command[], int max_args);

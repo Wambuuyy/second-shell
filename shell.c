@@ -4,7 +4,8 @@ int main()
 {
 	char *input = NULL;
 	size_t input_size = 0;
-	char *command[20];
+/*har *command[20];*/
+	char *commands[20];/*store individual commands*/
 	int stat_code;
 	int ex;
 
@@ -56,14 +57,34 @@ int main()
 			print_environment();
 			continue;
 		}
-		tokenize(input, command, 20);
+		tokenize(input, commands, 20);
 
-		if (command[0] != NULL)
+		if (commands[0] != NULL)
 		{
-			/* Execute the command only if its not empty*/
-			execute_command((const char *const *)command);
+			/* Execute the command only if it's not empty*/
+			execute_commands(commands);
 		}
 	}
 	free(input);
 	return 0;
+}
+
+/**
+ * execute_commands - Execute multiple commands separated by ';'
+ * @commands: Array of commands to execute.
+ */
+void execute_commands(char *const *commands)
+{
+	char *command;
+	char *single_command[20];/* Adjust the size as needed*/
+	int i = 0;
+	while ((command = commands[i++]) != NULL)
+	{
+		/* Tokenize and execute each command separately*/
+		tokenize(command, single_command, 20);
+		if (single_command[0] != NULL)
+		{
+			execute_command((const char *const *)single_command);
+		}
+	}
 }
