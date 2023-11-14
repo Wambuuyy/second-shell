@@ -27,6 +27,32 @@ void execute_command(const char *const *command)
 		return;
 	}
 
+	else if (strcmp(command[0], "setenv") == 0)
+	{
+		/* Handle 'setenv' command*/
+		if (command[1] != NULL && command[2] != NULL)
+		{
+			set_environment_variable(command[1], command[2]);
+		}
+		else
+		{
+			fprintf(stderr, "Error: 'setenv' command requires both VARIABLE and VALUE arguments.\n");
+		}
+		return;
+	}
+	else if (strcmp(command[0], "unsetenv") == 0)
+	{
+		/*Handle 'unsetenv' command*/
+		if (command[1] != NULL) {
+		unset_environment_variable(command[1]);
+	}
+		else
+		{
+			fprintf(stderr, "Error: 'unsetenv' command requires a VARIABLE argument.\n");
+		}
+		return;
+	}
+
 	cmd_path = resolve_command_path(command[0]);
 	if (cmd_path == NULL)
 	{
