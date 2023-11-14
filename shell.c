@@ -5,6 +5,8 @@ int main()
 	char *input = NULL;
 	size_t input_size = 0;
 	char *command[20];
+	int stat_code;
+	int ex;
 
 	while (1)
 	{
@@ -31,6 +33,23 @@ int main()
 		{
 			break;
 		}
+		ex = strlen("exit");
+		if (strncmp(input, "exit", ex) == 0)
+		{
+			/* extract the status code from the input*/
+			stat_code = atoi(input + ex);
+			/*handle invalid status codes*/
+			if (stat_code == 0 && input[ex] != '0')
+			{
+				fprintf(stderr, "Error: Invalid status code.\n");
+			}
+			else
+			{
+				/*exit the shell with the provided status code*/
+				free(input);
+				exit(stat_code);
+			}
+		}
 		/* Handle the "env" built-in command */
 		if (strcmp(input, "env") == 0)
 		{
@@ -47,17 +66,4 @@ int main()
 	}
 	free(input);
 	return 0;
-}
-
-void tokenize(char *input, char *command[], int max_args)
-{
-	char *token = strtok(input, " ");
-	int i = 0;
-
-	while (token != NULL && i < max_args)
-	{
-		command[i++] = token;
-		token = strtok(NULL, " ");
-	}
-	command[i] = NULL;
 }

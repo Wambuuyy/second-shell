@@ -77,6 +77,8 @@ void execute_command(const char *const *command)
 char *resolve_command_path(const char *command)
 {
 	char *cmd_path = NULL;
+	char *path = getenv("PATH");
+	char *token = str_tok(path, ":");
 
 	/* Check if the command is an absolute or relative path*/
 	if (command[0] == '/')/*|| command[0] == '.')*/
@@ -85,9 +87,8 @@ char *resolve_command_path(const char *command)
 	}
 	else
 	{
-		/* Search for the command in the PATH environment variable*/
-		char *path = getenv("PATH");
-		char *token = strtok(path, ":");
+		printf("PATH: %s\n", path);
+
 		while (token != NULL)
 		{
 			/* Construct the full path of the command*/
@@ -107,7 +108,7 @@ char *resolve_command_path(const char *command)
 			free(cmd_path);
 			cmd_path = NULL;
 
-			token = strtok(NULL, ":");
+			token = str_tok(NULL, ":");
 		}
 		if (cmd_path == NULL)
 		{
@@ -115,7 +116,7 @@ char *resolve_command_path(const char *command)
 			return (NULL);
 		}
 	}
-	/*printf("Resolved command path: %s\n", cmd_path);  Debugging statement */
+	printf("Resolved command path: %s\n", cmd_path);/* Debugging statement */
 	return cmd_path;
 }
 
