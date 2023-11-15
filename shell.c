@@ -4,7 +4,6 @@ int main()
 {
 	char *input = NULL;
 	size_t input_size = 0;
-/*har *command[20];*/
 	char *commands[20];/*store individual commands*/
 	int stat_code;
 	int ex;
